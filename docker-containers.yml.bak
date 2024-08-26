@@ -1,0 +1,90 @@
+---
+- name: Create Containers
+  hosts: all
+  become: true
+  tasks:
+    - name: Create a directory for Compose files
+      ansible.builtin.file:
+        path: /home/wbreiler/Compose
+        state: directory
+        mode: '0755'
+      changed_when: false
+
+    - name: Create Compose file for Nginx
+      ansible.builtin.copy:
+        dest: /home/wbreiler/Compose/docker-compose.yml
+        content: |
+          services:
+            web:
+              image: nginx:latest
+              ports:
+                - "80:80"
+              volumes:
+                - ./html:/usr/share/nginx/html
+                - ./nginx.conf:/etc/nginx/nginx.conf
+        mode: '0644'
+
+    - name: Create a directory for HTML files
+      ansible.builtin.file:
+        path: /home/wbreiler/Compose/nginx
+        state: directory
+        mode: '0755'
+      changed_when: false
+
+    - name: Create index.html for Nginx
+      ansible.builtin.copy:
+        dest: /home/wbreiler/Compose/nginx/index.html
+        content: |
+          <html>
+          <head><title>Welcome to Nginx!</title></head>
+          <body>
+          <h1>Success! Ansible successfully created the file, and created the conainer!</h1>
+          </body>
+          </html>
+        mode: '0644'
+
+    - name: Create a custom NGINX configuration
+      ansible.builtin.copy:
+        dest: /home/wbreiler/Compose/nginx.conf
+        content: |
+          user  nginx;
+          worker_processes  1;
+
+          events {
+            worker_connections  1024;
+          }
+
+          http {
+            include       mime.types;
+            default_type  application/octet-stream;
+
+            sendfile        on;
+            keepalive_timeout  65;
+
+            server {
+              listen       80;
+              server_name  localhost;
+
+              location / {
+                  root   /usr/share/nginx/html;
+                  index  index.html;
+                  allow 10.0.0.0/24;
+                  deny all;
+                }
+            }
+          }
+        mode: '0644'
+
+    - name: Ensure proper ownership of HTML files
+      ansible.builtin.file:
+        path: /home/wbreiler/Compose/nginx/
+        state: directory
+        owner: www-data
+        group: www-data
+        recurse: true
+
+    - name: Start Nginx container
+      ansible.builtin.shell: |
+        docker-compose up -d
+      args:
+        chdir: /home/wbreiler/Compose
