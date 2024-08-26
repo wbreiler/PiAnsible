@@ -29,7 +29,7 @@
     owner: www-data
     group: www-data
 - name: Run the Apache container
-  ansible,builtin.docker_container:
+  community.docker.docker_container:
     name: ansible_apache
     image: httpd:latest
     state: started
@@ -45,4 +45,4 @@
     owner: www-data
     group: www-data
     mode: '0755'
- 
+
