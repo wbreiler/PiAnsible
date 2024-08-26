@@ -1,7 +1,0 @@
-{
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": "file:///Users/wbreiler/Developer/DockerPi-Ansible/docker-install.yml",
-    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///Users/wbreiler/Developer/PiAnsible/tasks/docker-install.yml"
-  },
-  "ansible.python.interpreterPath": "/opt/homebrew/bin/python3"
-}
