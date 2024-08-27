@@ -3,6 +3,11 @@
   ansible.builtin.docker_image:
     name: httpd:latest
     source: pull
+- name: Stop and remove the Apache container if it exists
+  community.docker.docker_container:
+    name: ansible_apache
+    state: absent
+  failed_when: false
 - name: Create a directory for web content
   ansible.builtin.file:
     path: /home/wbreiler/Apache
@@ -12,18 +17,7 @@
     group: www-data
 - name: Copy default HTML file to Apache content directory
   ansible.builtin.copy:
-    content: |
-      <!DOCTYPE html>
-      <html>
-      <head>
-       <title> Welcome to Apache2 on Docker!</title>
-      </head>
-      <body>
-        <h1>Apache2 is running in a Docker container!</h1>
-        <p>This is the default web page served by Apache2 in Docker.</p>
-        <p>All of this was done using Ansible!</p>
-      </body>
-      </html>
+    src: /Users/wbreiler/Developer/PiAnsible/index.html
     dest: /home/wbreiler/Apache/index.html
     mode: '0644'
     owner: www-data
@@ -45,4 +39,3 @@
     owner: www-data
     group: www-data
     mode: '0755'
-

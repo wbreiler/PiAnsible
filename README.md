@@ -1,76 +1,124 @@
 # PiAnsible
 
-**PiAnsible** is a collection of Ansible playbooks designed to automate the setup and configuration of various services on a Raspberry Pi running Raspberry Pi OS Lite (64-bit). These playbooks simplify the installation and management of essential packages, Docker, Docker Compose, and containers such as Apache2.
+PiAnsible is an Ansible project designed to automate the setup of services on Raspberry Pi OS Lite. This repository includes playbooks to install and configure Docker, Docker Compose, and Apache2 within Docker containers.
 
-## Features
+## Getting Started
 
-- **System Update and Upgrade**: Automatically updates and upgrades the Raspberry Pi OS.
-- **Docker & Docker Compose Installation**: Installs Docker and Docker Compose, allowing for containerized applications.
-- **Apache2 Docker Container Setup**: Deploys an Apache2 server in a Docker container, serving a default HTML page.
-- **Modular Task Structure**: Each task is separated into different YAML files for better organization and maintainability.
+### Prerequisites
 
-## Prerequisites
-
-- A Raspberry Pi running Raspberry Pi OS Lite (64-bit).
-- Ansible installed on your local machine or control node.
+- Ansible installed on your local machine.
+- Access to a Raspberry Pi running Raspberry Pi OS Lite.
 - SSH access to the Raspberry Pi.
 
-## Directory Structure
+### Directory Structure
+
+Your project should include the following directory structure:
+
 ```
 PiAnsible/
 ├── tasks/
 │   ├── update-upgrade.yml
-│   ├── docker-install.yml
+│   ├── docker-compose.yml
 │   ├── apache-docker.yml
+├── inventory.example.ini
 ├── playbook.yml
-└── README.md
+└── index.html  # Create this file as described below
 ```
 
-## Getting Started
+### Creating the `index.html` File
 
-### 1. Clone the Repository
+1. Navigate to the root directory of your `PiAnsible` repository.
+2. Create an `index.html` file with the following command:
 
 ```bash
-git clone https://github.com/yourusername/PiAnsible.git
-cd PiAnsible
+   touch index.html
 ```
 
-### 2. Configure the Inventory File
+3. Edit the `index.html` file to include your desired content. Here's a simple example:
 
-- Copy the example inventory file and rename it to `inventory.ini`
-
-```bash
-cp inventory.example.ini inventory.ini
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to PiAnsible!</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #0056b3;
+    }
+    p {
+      font-size: 1.2em;
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #777;
+    }
+    a.button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #0056b3;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+    a.button:hover {
+      background-color: #003d7a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to PiAnsible!</h1>
+    <p>This is the default page served by your Apache2 Docker container. PiAnsible is an Ansible project designed to automate the setup of services on Raspberry Pi OS Lite.</p>
+    <p>For more information and to get started, visit the project repository on GitHub.</p>
+    <a href="https://github.com/wbreiler/PiAnsible" class="button">Visit GitHub Repository</a>
+    <div class="footer">
+      <p>&copy; 2024 PiAnsible. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
 ```
 
-- Open the inventory file in a text editor and specify the IP addresses or hostnames of your Raspberry Pi(s) and the SSH user
+### Using the Playbooks
 
-Example:
+1. **Set up the Inventory File**: Edit the `inventory.example.ini` to match your setup, and rename it to `inventory.ini`
+    - Example:
 
-```ini
-[all]
-pi1.local ansible_user=pi
-```
+    ```ini
+    [all]
+    pi.local ansible_user=pi
+    ```
 
-### 3. Run the Playbook
-
-To update and upgrade your system, install Docker and Docker Compose, and set up the Apache2 Docker container, run the following command:
-
-```bash
-ansible-playbook playbook.yml
-```
-
-## Customization
-
-- Modify the task files in the tasks/ directory to customize the installation and configuration steps.
-- The Apache2 default HTML file can be edited in the tasks/apache-docker-install.yml file.
-
-## Contibuting
-
-Feel free to submit issues or pull requests to contribute to this project.
+2. **Run the Playbook**
+  
+  ```bash
+  ansible-playbook playbook.yml
+  ```
 
 ## License
-
 This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
 
 ### What This Means
