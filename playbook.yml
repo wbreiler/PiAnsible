@@ -1,5 +1,5 @@
 ---
-- name: Install Docker
+- name: Raspberry Pi Setup
   hosts: all
   become: true
   tasks:
@@ -9,3 +9,5 @@
       ansible.builtin.include_tasks: tasks/docker-install.yml
     - name: Install Apache2 in Docker
       ansible.builtin.include_tasks: tasks/apache-docker.yml
+    - name: Disable IPv6
+      ansible.builtin.include_tasks: tasks/disable-ipv6.yml
