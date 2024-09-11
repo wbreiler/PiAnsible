@@ -5,7 +5,7 @@
     value: 1
     sysctl_set: true
     state: present
-    reload: yes
+    reload: true
 
 - name: Disable IPv6 for default interface
   ansible.builtin.sysctl:
@@ -13,7 +13,7 @@
     value: 1
     sysctl_set: true
     state: present
-    reload: yes
+    reload: true
 
 - name: Persist IPv6 settings in /etc/sysctl.conf
   ansible.builtin.lineinfile:
