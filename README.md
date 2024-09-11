@@ -1,6 +1,6 @@
 # PiAnsible
 
-PiAnsible is an Ansible project designed to automate the setup of services on Raspberry Pi OS Lite. This repository includes playbooks to install and configure Docker, Docker Compose, and Apache2 within Docker containers.
+PiAnsible is an Ansible project designed to automate the setup of services on Raspberry Pi OS Lite. This repository includes playbooks to install and configure Docker, Docker Compose, disable IPv6, install Netdata, and install Apache2 in Docker.
 
 ## Getting Started
 
@@ -121,7 +121,7 @@ PiAnsible/
       claim_rooms: "your-claim-rooms-here"
       ```
 
-2. **Set up the Inventory File**: Edit the `inventory.example.ini` to match your setup, and rename it to `inventory.ini`
+2. **Set up the Inventory File**: Copy `inventory.example.ini` to `inventory.ini`, and edit it to match your setup
     - Example:
 
     ```ini
