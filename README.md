@@ -10,6 +10,8 @@ PiAnsible is an Ansible project designed to automate the setup of services on Ra
 - Access to a Raspberry Pi running Raspberry Pi OS Lite.
 - SSH access to the Raspberry Pi.
 
+Note: This playbook has only been tested on a Raspberry Pi 4 B running Raspberry Pi OS Lite 64-bit. It should work on other distros and architectures, however if there are any issues create an issue and I will look into it when I have the time.
+
 ### Directory Structure
 
 Your project should include the following directory structure:
@@ -21,7 +23,7 @@ PiAnsible/
 │   ├── docker-compose.yml
 │   ├── apache-docker.yml
 ├── inventory.example.ini
-├── playbook.yml
+├── main.yml
 └── index.html  # Create this file as described below
 ```
 
@@ -115,7 +117,7 @@ PiAnsible/
 2. **Run the Playbook**
   
   ```bash
-  ansible-playbook playbook.yml
+  ansible-playbook main.yml
   ```
 
 ## License
