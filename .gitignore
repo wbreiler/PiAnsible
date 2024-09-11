@@ -2,3 +2,4 @@
 inventory.ini
 index.html
 tasks/install-netdata.yml
+vars/
