@@ -1,5 +1,4 @@
 .vscode
 inventory.ini
 index.html
-tasks/install-netdata.yml
-vars/
+vars/netdata_credentials.yml

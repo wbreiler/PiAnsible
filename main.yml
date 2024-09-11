@@ -11,3 +11,5 @@
       ansible.builtin.include_tasks: tasks/disable-ipv6.yml
     - name: Install Apache2 in Docker
       ansible.builtin.include_tasks: tasks/apache-docker.yml
+    - name: Install Netdata
+      ansible.builtin.include_tasks: tasks/install-netdata.yml

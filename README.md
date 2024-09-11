@@ -7,8 +7,8 @@ PiAnsible is an Ansible project designed to automate the setup of services on Ra
 ### Prerequisites
 
 - Ansible installed on your local machine.
-- Access to a Raspberry Pi running Raspberry Pi OS Lite.
-- SSH access to the Raspberry Pi.
+- Access to a computer or computers running Debian.
+- SSH access to the computer(s).
 
 Note: This playbook has only been tested on a Raspberry Pi 4 B running Raspberry Pi OS Lite 64-bit. It should work on other distros and architectures, however if there are any issues create an issue and I will look into it when I have the time.
 
@@ -23,6 +23,9 @@ PiAnsible/
 │   ├── docker-compose.yml
 │   ├── apache-docker.yml
 │   ├── disable-ipv6.yml
+│   ├── install_netdata.yml
+├── vars/
+│   ├── netdata_credentials.yml
 ├── inventory.example.ini
 ├── main.yml
 └── index.html  # Create this file as described below
@@ -107,7 +110,18 @@ PiAnsible/
 
 ### Using this playbook
 
-1. **Set up the Inventory File**: Edit the `inventory.example.ini` to match your setup, and rename it to `inventory.ini`
+1. Store your Netdata credentials in the `vars/netdata_credentials.yml` file
+    - `touch vars/netdata_credentials.yml`
+    - Open the file in your favorite text editor
+    - Your credentials file should look like this:
+
+      ```yml
+      ---
+      claim_token: "your-claim-token-here"
+      claim_rooms: "your-claim-rooms-here"
+      ```
+
+2. **Set up the Inventory File**: Edit the `inventory.example.ini` to match your setup, and rename it to `inventory.ini`
     - Example:
 
     ```ini
@@ -115,7 +129,7 @@ PiAnsible/
     pi.local ansible_user=pi
     ```
 
-2. **Run the Playbook**
+3. **Run the Playbook**
   
   ```bash
   ansible-playbook main.yml

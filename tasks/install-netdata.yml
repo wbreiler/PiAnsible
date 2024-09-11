@@ -1,0 +1,16 @@
+---
+- name: Load Netdata credentials
+  ansible.builtin.include_vars:
+    file: vars/netdata_credentials.yml
+
+- name: Download and install Netdata
+  ansible.builtin.shell: |
+    wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh
+    sh /tmp/netdata-kickstart.sh --stable-channel \
+      --claim-token {{ claim_token }} \
+      --claim-rooms {{ claim_rooms }} \
+      --claim-url https://app.netdata.cloud
+  args:
+    executable: /bin/bash
+  register: netdata_install_output
+  failed_when: "'error' in netdata_install_output.stdout or 'error' in netdata_install_output.stderr"

@@ -29,6 +29,7 @@
     line: 'net.ipv6.conf.default.disable_ipv6 = 1'
     state: present
 
-- name: Apply sysctl settings
-  ansible.builtin.command: sysctl -p
-  changed_when: false
+- name: Apply network settings
+  ansible.builtin.systemd_service:
+    name: NetworkManager
+    state: restarted
