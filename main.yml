@@ -13,5 +13,3 @@
       ansible.builtin.include_tasks: tasks/apache-docker.yml
     - name: Install Netdata
       ansible.builtin.include_tasks: tasks/install-netdata.yml
-    - name: Install Spoolman in Docker
-      ansible.builtin.include_tasks: tasks/spoolman-docker.yml
