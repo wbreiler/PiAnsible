@@ -22,6 +22,7 @@ PiAnsible/
 │   ├── update-upgrade.yml
 │   ├── docker-compose.yml
 │   ├── apache-docker.yml
+│   ├── disable-ipv6.yml
 ├── inventory.example.ini
 ├── main.yml
 └── index.html  # Create this file as described below
@@ -104,7 +105,7 @@ PiAnsible/
 </html>
 ```
 
-### Using the Playbooks
+### Using this playbook
 
 1. **Set up the Inventory File**: Edit the `inventory.example.ini` to match your setup, and rename it to `inventory.ini`
     - Example:
@@ -121,6 +122,7 @@ PiAnsible/
   ```
 
 ## License
+
 This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
 
 ### What This Means
