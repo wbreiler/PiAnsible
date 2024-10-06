@@ -1,0 +1,9 @@
+---
+- name: Setup and deploy multiple Docker containers
+  hosts: all
+  become: true
+
+  roles:
+    - apt_cache
+    - setup
+    - docker
