@@ -1,8 +1,0 @@
----
-- name: Update apt index
-  ansible.builtin.apt:
-    update_cache: true
-
-- name: Upgrade all apt packages
-  ansible.builtin.apt:
-    upgrade: full
