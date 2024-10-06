@@ -1,0 +1,56 @@
+---
+- name: Add Ansible user to the Docker group
+  ansible.builtin.user:
+    name: ansible
+    groups: docker
+    append: yes
+
+- name: Ensure Docker is running
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+# Define container details as a list of dictionaries to loop through
+- name: Pull Docker images
+  ansible.builtin.docker_image:
+    name: "{{ item.image }}"
+    source: pull
+  loop: "{{ containers }}"
+  tags: 
+    - docker
+
+- name: Stop and remove existing containers
+  community.docker.docker_container:
+    name: "{{ item.name }}"
+    state: absent
+    force_kill: yes
+  loop: "{{ containers }}"
+  ignore_errors: true
+  tags: 
+    - cleanup
+
+- name: Create directories for container volumes
+  ansible.builtin.file:
+    path: "{{ item.volume_host }}"
+    state: directory
+    mode: '0755'
+    owner: ansible
+    group: ansible
+  loop: "{{ containers }}"
+  when: item.volume_host is defined
+  tags: 
+    - setup
+
+- name: Run the Docker containers
+  community.docker.docker_container:
+    name: "{{ item.name }}"
+    image: "{{ item.image }}"
+    state: started
+    ports: "{{ item.ports }}"
+    volumes: "{{ item.volumes }}"
+    restart_policy: always
+  loop: "{{ containers }}"
+  tags: 
+    - docker
+    - deployment

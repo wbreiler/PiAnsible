@@ -1,0 +1,28 @@
+---
+- name: Update APT package index
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install required packages including Docker
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - docker.io
+    state: present
+
+- name: Disable IPv6 in sysctl
+  ansible.builtin.sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: 1
+    state: present
+    sysctl_set: yes
+    reload: yes
+
+- name: Ensure Docker service is running
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: yes
