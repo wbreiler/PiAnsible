@@ -2,4 +2,4 @@
 inventory.ini
 index.html
 vars/
-roles/apt-cache.yml
+roles/apt-cache
