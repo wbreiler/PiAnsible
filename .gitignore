@@ -1,5 +1,5 @@
 .vscode
 inventory.ini
 index.html
-vars/netdata_credentials.yml
-tasks/apt-cache.yml
+vars/
+roles/apt-cache.yml
