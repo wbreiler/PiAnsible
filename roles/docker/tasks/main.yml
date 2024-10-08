@@ -1,7 +1,7 @@
 ---
 - name: Add Ansible user to the Docker group
   ansible.builtin.user:
-    name: ansible
+    name: pi
     groups: docker
     append: yes
 
@@ -32,11 +32,11 @@
 
 - name: Create directories for container volumes
   ansible.builtin.file:
-    path: "{{ item.volume_host }}"
+    path: "{{ item.volume_hosts }}"
     state: directory
     mode: '0755'
-    owner: ansible
-    group: ansible
+    owner: pi
+    group: pi
   loop: "{{ containers }}"
   when: item.volume_host is defined
   tags: 
@@ -49,6 +49,7 @@
     state: started
     ports: "{{ item.ports }}"
     volumes: "{{ item.volumes }}"
+    command: "{{ item.command | default(omit) }}"  # Use the custom command if defined
     restart_policy: always
   loop: "{{ containers }}"
   tags: 
