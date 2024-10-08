@@ -7,3 +7,4 @@
     - apt_cache
     - setup
     - docker
+    - netdata

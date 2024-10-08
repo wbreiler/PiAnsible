@@ -3,3 +3,4 @@ inventory/hosts
 index.html
 vars/
 roles/apt-cache
+roles/netdata
