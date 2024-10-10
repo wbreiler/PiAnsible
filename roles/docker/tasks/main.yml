@@ -11,6 +11,25 @@
     state: started
     enabled: yes
 
+- name: Ensure the web directory exists
+  ansible.builtin.file:
+    path: /home/pi/web
+    state: directory
+    mode: '0755'
+    owner: pi
+    group: pi
+
+- name: Copy premade index
+  ansible.builtin.copy:
+    src: "{{ index_html_src }}"
+    dest: "{{ index_html_dest }}"
+    owner: pi
+    group: pi
+    mode: '0644'
+  tags:
+    - copy
+    - web
+
 # Define container details as a list of dictionaries to loop through
 - name: Pull Docker images
   ansible.builtin.docker_image:
