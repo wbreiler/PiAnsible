@@ -8,9 +8,5 @@ containers:
     volume_hosts: 
       - "/home/pi/web"
   
-netdata_claim_token: "b-OYRoiC5v1TseENaX-3ieYu_6nzTxVKKmQBCy-RnFidAbMNNsQUTPC3JlYAMwNXH91g-9ZFragoqv1ciJXvG6nED-YyKOmMi8gLQGBE7BExKWteorqinJU9q-LfYUgcziDL9TY"
-netdata_claim_room: "abf4dab0-bc61-49b1-9a3d-92c28bf14bdb"
-netdata_claim_url: "https://app.netdata.cloud"
-
 index_html_dest: "/home/pi/web/index.html"
 index_html_src: "./index.html"
