@@ -3,8 +3,12 @@
   hosts: all
   become: true
 
+  vars_files:
+    - vars/netdata.yml
+    - vars/all.yml
+
   roles:
-    - apt_cache
-    - setup
-    - docker
-    - netdata
+    - { role: apt_cache, tags: aptcache }
+    - { role: setup, tags: setup }
+    - { role: docker, tags: docker }
+    - { role: netdata, tags: netdata }
