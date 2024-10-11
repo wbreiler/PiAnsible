@@ -8,7 +8,7 @@
     - vars/all.yml
 
   roles:
-    - { role: apt_cache, tags: aptcache }
+    - { role: apt-cache, tags: aptcache }
     - { role: setup, tags: setup }
     - { role: docker, tags: docker }
     - { role: netdata, tags: netdata }
