@@ -1,2 +1,3 @@
 .vscode
 vars/netdata.yml
+.env
