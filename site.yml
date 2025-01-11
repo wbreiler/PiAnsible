@@ -1,0 +1,16 @@
+---
+- name: Setup Docker environment
+  hosts: all
+  become: true
+  roles:
+    - role: update_packages
+      tags: update_packages
+
+    - role: install_docker
+      tags: install_docker
+
+    - role: install_compose
+      tags: install_docker_compose
+
+    - role: manage_compose
+      tags: manage_docker_compose

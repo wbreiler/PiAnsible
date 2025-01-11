@@ -1,0 +1,32 @@
+---
+- name: Get latest Docker Compose version
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/docker/compose/releases/latest
+    return_content: true
+  register: docker_compose_release
+  tags:
+    - docker_compose
+    - install_docker_compose
+
+- name: Set Compose version fact
+  ansible.builtin.set_fact:
+    docker_compose_version: "{{ docker_compose_release.json.tag_name | regex_replace('^v', '') }}"
+  tags:
+    - docker_compose
+    - install_docker_compose
+
+- name: Download the latest Compose binary
+  ansible.builtin.get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+    dest: /usr/local/bin/docker-compose
+    mode: '0755'
+  tags:
+    - docker_compose
+    - install_docker_compose
+
+- name: Verify Compose installation
+  ansible.builtin.command: docker-compose --version
+  changed_when: false
+  tags:
+    - docker_compose
+    - install_docker_compose
