@@ -14,3 +14,7 @@
 
     - role: manage_compose
       tags: manage_docker_compose
+
+    - role: install_minio_client
+      tags: minio
+ 
