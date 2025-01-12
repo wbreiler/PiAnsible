@@ -1,19 +1,30 @@
 ---
-- name: Setup Docker environment
+- name: Update packages
   hosts: all
   become: true
   roles:
     - role: update_packages
-      tags: update_packages
 
+- name: Install Docker
+  hosts: all
+  become: true
+  roles:
     - role: install_docker
-      tags: install_docker
 
+- name: Install Docker Compose
+  hosts: all
+  become: true
+  roles:
     - role: install_compose
-      tags: install_docker_compose
 
+- name: Start Compose services
+  hosts: all
+  become: false
+  roles:
     - role: manage_compose
-      tags: manage_docker_compose
 
+- name: Install MinIO Client (mc)
+  hosts: all
+  become: false
+  roles:
     - role: install_minio_client
-      tags: minio

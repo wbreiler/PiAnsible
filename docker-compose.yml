@@ -1,0 +1,37 @@
+services:
+  wyzebridge:
+    env_file: ".env"
+    restart: unless-stopped
+    image: mrlt8/wyze-bridge:latest
+    ports:
+      - 1935:1935 # RTMP
+      - 8554:8554 # RTSP
+      - 8888:8888 # HLS
+      - 8889:8889 #WebRTC
+      - 8189:8189/udp # WebRTC/ICE
+      - 5000:5000 # WEB-UI
+    environment:
+      - WYZE_EMAIL=${WYZE_EMAIL}
+      - WYZE_PASSWORD=${WYZE_PASSWORD}
+      - API_ID=${API_ID}
+      - API_KEY=${API_KEY}
+      - WB_AUTH="False"
+  gogs:
+    restart: unless-stopped
+    image: gogs/gogs:latest
+    ports:
+      - 1022:22
+      - 3000:3000
+    volumes:
+      - /home/pi/gogs:/data
+    environment:
+      - RUN_CROND=true
+  prowlarr:
+    restart: unless-stopped
+    image: hotio/prowlarr
+    ports:
+      - 9696:9696
+    environment:
+      - TZ="America/Chicago"
+    volumes:
+      - /home/pi/prowlarr:/config

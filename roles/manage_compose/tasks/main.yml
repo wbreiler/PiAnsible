@@ -9,7 +9,7 @@
     - docker_compose
 
 - name: Start services
-  ansible.builtin.command: docker-compose up -d
+  ansible.builtin.command: docker compose up -d
   changed_when: false
   args:
     chdir: "{{ ansible_env.HOME }}"

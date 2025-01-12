@@ -2,7 +2,7 @@
 - name: Update packages (Debian-based)
   ansible.builtin.apt:
     update_cache: true
-    upgrade: dist
+    upgrade: full
   when: ansible_facts['os_family'] == "Debian"
   tags:
     - update
