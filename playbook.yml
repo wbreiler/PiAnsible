@@ -9,3 +9,23 @@
       - "{{ ansible_user }}"
     docker_install_compose: true
     docker_compose_version: "v2.24.5"
+
+- name: Deploy Docker Compose services
+  hosts: all
+  become: true
+  tasks:
+    - name: Copy docker-compose.yml
+      ansible.builtin.copy:
+        src: docker-compose.yml
+        dest: /home/{{ ansible_user }}/docker-compose.yml
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0644'
+
+    - name: Start Docker Compose services
+      ansible.builtin.command: docker compose up -d
+      args:
+        chdir: /home/{{ ansible_user }}
+      changed_when: false
+      become: true
+      become_user: "{{ ansible_user }}"
